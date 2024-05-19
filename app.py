@@ -46,12 +46,3 @@ if submit:
     response=get_gemini_response(input,image)
     st.subheader("The Response is")
     st.write(response)
-
-submit=st.button("Historical Context")
-## If ask button is clicked
-
-if submit:
-    
-    response=get_gemini_response(input,image)
-    st.subheader("The Response is")
-    st.write(response)
