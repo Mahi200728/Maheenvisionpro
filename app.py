@@ -46,3 +46,7 @@ if submit:
     response=get_gemini_response(input,image)
     st.subheader("The Response is")
     st.write(response)
+
+submit=st.button("What is the historical context")
+submit=st.button("Give me a brief summary")
+submit=st.button("Pull up similar looking photos")
