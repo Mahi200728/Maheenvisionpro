@@ -4,45 +4,32 @@ load_dotenv()  # take environment variables from .env.
 
 import streamlit as st
 import os
-import pathlib
-import textwrap
 from PIL import Image
-
-
 import google.generativeai as genai
 
-
+# Configure Google API key
 os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-## Function to load OpenAI model and get respones
-
-def get_gemini_response(input,image):
+# Function to load OpenAI model and get responses
+def get_gemini_response(input, image):
     model = genai.GenerativeModel('gemini-pro-vision')
-    if input!="":
-       response = model.generate_content([input,image])
+    if input != "":
+        response = model.generate_content([input, image])
     else:
-       response = model.generate_content(image)
+        response = model.generate_content(image)
     return response.text
 
 # Initialize Streamlit app
 st.set_page_config(page_title="Foto")
 
 st.header("Foto Powered by Gemini")
-
-# Load and display the specified image from the URL
-robot_image_url = "https://i.ibb.co/CQmG043/Web-Apps-Robot-01.png"
-response = requests.get(robot_image_url)
-robot_image = Image.open(BytesIO(response.content))
-st.image(robot_image, caption="Web Apps Robot", use_column_width=True)
-
 input_prompt = st.text_input("Input Prompt: ", key="input")
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 image = ""   
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
-
 
 # Button variables
 tell_me_button = st.button("Tell me about the image")
