@@ -25,14 +25,20 @@ def get_gemini_response(input,image):
        response = model.generate_content(image)
     return response.text
 
-##initialize our streamlit app
-
+# Initialize Streamlit app
 st.set_page_config(page_title="Foto")
 
 st.header("Foto Powered by Gemini")
-input=st.text_input("Input Prompt: ",key="input")
+
+# Load and display the specified image from the URL
+robot_image_url = "https://i.ibb.co/CQmG043/Web-Apps-Robot-01.png"
+response = requests.get(robot_image_url)
+robot_image = Image.open(BytesIO(response.content))
+st.image(robot_image, caption="Web Apps Robot", use_column_width=True)
+
+input_prompt = st.text_input("Input Prompt: ", key="input")
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-image=""   
+image = ""   
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
