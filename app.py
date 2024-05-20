@@ -38,20 +38,29 @@ if uploaded_file is not None:
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
 
-submit=st.button("Tell me about the image")
-## If ask button is clicked
+# Button variables
+tell_me_button = st.button("Tell me about the image")
+historical_context_button = st.button("What is the historical context")
+brief_summary_button = st.button("Give me a brief summary")
+similar_looking_button = st.button("Pull up similar looking pictures")
 
-if submit:
-    
-    response=get_gemini_response(input,image)
+# Button logic
+if tell_me_button:
+    response = get_gemini_response(input_prompt, image)
     st.subheader("The Response is")
     st.write(response)
 
-submit=st.button("What is the historical context")
-if submit:
-    
-    response=get_gemini_response(input,image)
+if historical_context_button:
+    response = get_gemini_response("What is the historical context of this image?", image)
     st.subheader("The Response is")
     st.write(response)
-submit=st.button("Give me a brief summary")
-submit=st.button("Pull up similar looking photos")
+
+if brief_summary_button:
+    response = get_gemini_response("Give me a brief summary of this image.", image)
+    st.subheader("The Response is")
+    st.write(response)
+
+if similar_looking_button:
+    response = get_gemini_response("Show me similar looking pictures.", image)
+    st.subheader("The Response is")
+    st.write(response)
